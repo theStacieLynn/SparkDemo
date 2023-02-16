@@ -41,10 +41,12 @@ public class User {
 	 * 
 	 */
 	
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
-	private Set<Order> orders = new HashSet<>();
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
-	private Set<Review> reviews = new HashSet<>();
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	Set<OrderOriginal> orders = new HashSet<>();
+	
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	Set<Review> reviews = new HashSet<>();
 	/**
 	 * Generate empty and parameterized constructors
 	 */
@@ -53,7 +55,7 @@ public class User {
 	}
 	
 	
-	public User(String fName, String lName, String email, String password, String address, Set<Order> orders,
+	public User(String fName, String lName, String email, String password, String address, Set<OrderOriginal> orders,
 			Set<Review> reviews) {
 		super();
 		this.fName = fName;
@@ -130,12 +132,12 @@ public class User {
 	}
 
 
-	public Set<Order> getOrders() {
+	public Set<OrderOriginal> getOrders() {
 		return orders;
 	}
 
 
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(Set<OrderOriginal> orders) {
 		this.orders = orders;
 	}
 

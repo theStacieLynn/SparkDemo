@@ -1,8 +1,9 @@
 package com.ruiz.Spark.model;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -30,11 +31,14 @@ public class Product {
 	/**
 	 * Establish relationship with the other entities
 	 * Product has a ManyToOne relationship with Category
-	 * Product has a Many to Many relationship with order
-	 * Product has a OneToManyRelationship with 
+	 * Product has a OneToManyRelationship with OrderProduct
+	 * and Review
 	 */
-	@ManyToMany(mappedBy="products")
-	private Set<Order> orders = new HashSet<>();
+	
+	
+	@OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval=true)
+	private List<OrderProduct> items = new ArrayList<>();
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
@@ -50,15 +54,19 @@ public class Product {
 		super();
 	}
 	
-	public Product(String name, String color, int price, Set<Order> orders, Category category, Set<Review> review) {
+	
+	public Product(String name, String color, int price, List<OrderProduct> items, Category category,
+			Set<Review> review) {
 		super();
 		this.name = name;
 		this.color = color;
 		this.price = price;
-		this.orders = orders;
+		this.items = items;
 		this.category = category;
 		this.review = review;
 	}
+
+
 	/**
 	 * Generate Getters and Setters for attributes
 	 * @return
@@ -96,13 +104,6 @@ public class Product {
 		this.price = price;
 	}
 
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
 
 	public Category getCategory() {
 		return category;
@@ -120,33 +121,27 @@ public class Product {
 		this.review = review;
 	}
 	
+	
+	public List<OrderProduct> getItems() {
+		return items;
+	}
+
+
+	public void setItems(List<OrderProduct> items) {
+		this.items = items;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", color=" + color + ", price=" + price + ", orders=" + orders
+		return "Product [id=" + id + ", name=" + name + ", color=" + color + ", price=" + price 
 				+ ", category=" + category + ", review=" + review + "]";
 	}
 
 	/**
 	 * Override hashCode and equals for testing
 	 */
-	@Override
-	public int hashCode() {
-		return Objects.hash(category, color, id, name, orders, price, review);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		return Objects.equals(category, other.category) && Objects.equals(color, other.color)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(orders, other.orders) && price == other.price && Objects.equals(review, other.review);
-	}
+	
 	
 	
 	
