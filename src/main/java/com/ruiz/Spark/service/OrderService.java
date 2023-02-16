@@ -3,6 +3,7 @@ package com.ruiz.Spark.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,5 +99,9 @@ public class OrderService {
 	 */
 	public void saveOrder(OrderOriginal order) {
 		orderRepository.save(order);
+	}
+	
+	public Optional<OrderOriginal> getOrderByID(Long id){
+		return orderRepository.findById(id);
 	}
 }
