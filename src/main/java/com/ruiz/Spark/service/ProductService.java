@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.ruiz.Spark.model.Product;
 import com.ruiz.Spark.repository.ProductRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ProductService {
 
@@ -31,8 +33,12 @@ public class ProductService {
 	 * get product by id
 	 * @return
 	 */
-	public Optional<Product> getProduct(Long id){
-		return productRepository.findById(id);
+	public Product getProductById(Long id){
+		Product product = productRepository.findById(id).orElse(null);
+		if(product==null) {
+			throw new EntityNotFoundException("Order with id "+id+" is not found.");
+		}
+		return product;
 	}
 	
 	public Optional<Product> getProductByColor(String color){

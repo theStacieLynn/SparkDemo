@@ -1,14 +1,16 @@
 package com.ruiz.Spark.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -17,8 +19,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	@Autowired
-	private UserDetailsService userDetailsService;
 
 	@Bean
 	public static PasswordEncoder passwordEncoder(){
@@ -28,23 +28,67 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
-						.requestMatchers("/cart").permitAll()
-						.requestMatchers("/index").permitAll()
-						.requestMatchers("/category/**").permitAll()
-						.requestMatchers("/users").hasRole("USER"))
-				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/users")
+				.authorizeHttpRequests()
+				.requestMatchers("/**","/css/**").permitAll()
+				
+				.and()
+				.formLogin(form -> form.loginPage("/login")
+						.loginProcessingUrl("/login")
+						.defaultSuccessUrl("/home/")
 						.permitAll())
-				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll());
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.permitAll()
+				
+				.and()
+				.exceptionHandling()
+				.accessDeniedPage("/accessdenied");
 		return http.build();
 	}
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws
-	Exception {
-	auth
-	.userDetailsService(userDetailsService)
-	.passwordEncoder(passwordEncoder());
-	}
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws
+//	Exception {
+//	auth
+//	.userDetailsService(userDetailsService)
+//	.passwordEncoder(passwordEncoder());
+//	}
+	
+//	@Bean
+//	protected InMemoryUserDetailsManager configAuthentications() {
+//		List<UserDetails> users = new ArrayList<>();
+//		List<GrantedAuthority> userAuthority = new ArrayList<>();
+//		userAuthority.add(new SimpleGrantedAuthority("USER"));
+//		UserDetails user = new User("hp@hogwarts.edu","{noop}hp2000",userAuthority);
+//		users.add(user);
+//		return new InMemoryUserDetailsManager(users);
+//	}
+//	
+//	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+//		http.authorizeHttpRequests()
+//			.requestMatchers("/home").permitAll()
+//			.requestMatchers("/collections/**").permitAll()
+//			.requestMatchers("/**").permitAll()
+//			.requestMatchers("/orders/**").hasAnyAuthority("USER")
+//			
+//			.anyRequest().authenticated()
+//			
+//			.and()
+//			.formLogin()
+//			.defaultSuccessUrl("/orders",true)
+//			
+//			.and()
+//			.logout()
+//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//			
+//			//exception handling
+//			.and()
+//			.exceptionHandling()
+//			.accessDeniedPage("/accessedDenied");
+//		
+//		
+//			//finally we need to build
+//			return http.build();
+//	}
 	
 }

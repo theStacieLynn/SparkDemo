@@ -3,7 +3,6 @@ package com.ruiz.Spark.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,8 @@ import com.ruiz.Spark.model.OrderProduct;
 import com.ruiz.Spark.model.Product;
 import com.ruiz.Spark.model.User;
 import com.ruiz.Spark.repository.OrderRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class OrderService {
@@ -101,7 +102,15 @@ public class OrderService {
 		orderRepository.save(order);
 	}
 	
-	public Optional<OrderOriginal> getOrderByID(Long id){
-		return orderRepository.findById(id);
+	public void deleteOrder(OrderOriginal order) {
+		orderRepository.delete(order);
+	}
+	
+	public OrderOriginal getOrderByID(Long id){
+		OrderOriginal order = orderRepository.findById(id).orElse(null);
+		if(order==null) {
+			throw new EntityNotFoundException("Order with id "+id+" is not found.");
+		}
+		return order;
 	}
 }
