@@ -9,12 +9,11 @@
 	
 	<table>
 		<tr>
-			<th>Product</th>
+			<th>Order Date</th>
 			<th>Price</th>
-			<th>Quantity</th>
 			<th>Action</th>
 		</tr>
-		<tr th:each="order : ${myorders}">
+		<tr th:each="order : ${myorder}">
 			<td th:text ="${order.date)"></td>
 			<td th:text ="${order.total)"></td>
 			<td>

@@ -31,7 +31,6 @@ public class User {
 	private String password;
 	
 
-	private String address;
 	
 	/**
 	 * Establish relationships with other entities
@@ -54,14 +53,14 @@ public class User {
 	}
 	
 	
-	public User(String fName, String lName, String email, String password, String address, Set<OrderOriginal> orders,
+	public User(String fName, String lName, String email, String password, Set<OrderOriginal> orders,
 			Set<Review> reviews) {
 		super();
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;
 		this.password = password;
-		this.address = address;
+	
 		this.orders = orders;
 		this.reviews = reviews;
 	}
@@ -121,16 +120,6 @@ public class User {
 	}
 
 
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
 	public Set<OrderOriginal> getOrders() {
 		return orders;
 	}
@@ -153,7 +142,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fName=" + fName + ", lName=" + lName + ", email=" + email + ", password="
-				+ password + ", address=" + address + ", orders=" + orders + ", reviews=" + reviews + "]";
+				+ password + ", orders=" + orders + ", reviews=" + reviews + "]";
 	}
 
 
@@ -162,7 +151,7 @@ public class User {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, email, fName, id, lName, orders, password, reviews);
+		return Objects.hash(email, fName, id, lName, orders, password, reviews);
 	}
 
 
@@ -175,7 +164,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
+		return  Objects.equals(email, other.email)
 				&& Objects.equals(fName, other.fName) && Objects.equals(id, other.id)
 				&& Objects.equals(lName, other.lName) && Objects.equals(orders, other.orders)
 				&& Objects.equals(password, other.password) && Objects.equals(reviews, other.reviews);

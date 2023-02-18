@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create Account</title>
+</head>
+<body>
+	<nav>
+		<a href="/login">Login In</a>
+	</nav>
+	<h1>Register</h1>
+	 <div th:if="${param.success}">
+          <div class="alert alert-info">
+            You have successfully registered our app!
+          </div>
+      </div>
+	<form method="post" role="form"
+            th:action="@{/register/save}"
+            th:object="${user}">
+		<label for = "firstName">Frist Name: </label>
+		<input type ="text" id="fName" th:field="*{fName}">
+		<p th:errors = "*{firstName}" class="text-danger"
+              th:if="${#fields.hasErrors('fName')}"></p>
+		<br />
+		
+		<label for = "lastName">Last Name: </label>
+		<input type ="text" id="lName" th:field="*{lName}">
+		<p th:errors = "*{lastName}" class="text-danger"
+              th:if="${#fields.hasErrors('lName')}"></p>
+		<br />
+		
+		<label for = "email">Email: </label>
+		<input type ="email" id="email" th:field="*{email}">
+		<br />
+		
+		<label for = "password">Password: </label>
+		<input type ="password" id="password" th:field="*{password}">
+		<br />
+		<button type = "submit">Register</button>
+		
+	</form>
+</body>
+</html>
