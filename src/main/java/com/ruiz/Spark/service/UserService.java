@@ -1,6 +1,6 @@
 package com.ruiz.Spark.service;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +11,7 @@ import com.ruiz.Spark.dto.UserDto;
 import com.ruiz.Spark.model.User;
 import com.ruiz.Spark.repository.UserRepository;
 
-import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class UserService {

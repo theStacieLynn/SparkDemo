@@ -14,6 +14,9 @@ import com.ruiz.Spark.service.UserService;
 
 @Service
 public class SecurityService implements UserDetailsService{
+	
+	
+	
 	@Autowired
 	UserService userService;
 

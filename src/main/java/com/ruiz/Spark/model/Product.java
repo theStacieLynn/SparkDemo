@@ -2,9 +2,8 @@ package com.ruiz.Spark.model;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.*;
 /**
@@ -43,9 +42,7 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
 	private Category category;
-	
-	@OneToMany(mappedBy="product", cascade=CascadeType.ALL)
-	Set<Review> review = new HashSet<>();
+
 
 	/**
 	 * Generate empty and parameterized constructors
@@ -55,15 +52,14 @@ public class Product {
 	}
 	
 	
-	public Product(String name, String color, int price, List<OrderProduct> items, Category category,
-			Set<Review> review) {
+	public Product(String name, String color, int price, List<OrderProduct> items, Category category) {
 		super();
 		this.name = name;
 		this.color = color;
 		this.price = price;
 		this.items = items;
 		this.category = category;
-		this.review = review;
+	
 	}
 
 
@@ -113,13 +109,6 @@ public class Product {
 		this.category = category;
 	}
 
-	public Set<Review> getReview() {
-		return review;
-	}
-
-	public void setReview(Set<Review> review) {
-		this.review = review;
-	}
 	
 	
 	public List<OrderProduct> getItems() {
@@ -135,7 +124,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", color=" + color + ", price=" + price 
-				+ ", category=" + category + ", review=" + review + "]";
+				+ ", category=" + category  + "]";
 	}
 
 	/**

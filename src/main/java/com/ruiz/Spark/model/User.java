@@ -43,8 +43,7 @@ public class User {
 	Set<OrderOriginal> orders = new HashSet<>();
 	
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<Review> reviews = new HashSet<>();
+	
 	/**
 	 * Generate empty and parameterized constructors
 	 */
@@ -53,8 +52,7 @@ public class User {
 	}
 	
 	
-	public User(String fName, String lName, String email, String password, Set<OrderOriginal> orders,
-			Set<Review> reviews) {
+	public User(String fName, String lName, String email, String password, Set<OrderOriginal> orders) {
 		super();
 		this.fName = fName;
 		this.lName = lName;
@@ -62,7 +60,7 @@ public class User {
 		this.password = password;
 	
 		this.orders = orders;
-		this.reviews = reviews;
+		
 	}
 	/**
 	 * Generate Getters and Setters for attributes
@@ -130,19 +128,13 @@ public class User {
 	}
 
 
-	public Set<Review> getReviews() {
-		return reviews;
-	}
 
-
-	public void setReviews(Set<Review> reviews) {
-		this.reviews = reviews;
-	}
+	
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fName=" + fName + ", lName=" + lName + ", email=" + email + ", password="
-				+ password + ", orders=" + orders + ", reviews=" + reviews + "]";
+				+ password + ", orders=" + orders +  "]";
 	}
 
 
@@ -151,7 +143,7 @@ public class User {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, fName, id, lName, orders, password, reviews);
+		return Objects.hash(email, fName, id, lName, orders, password);
 	}
 
 
@@ -167,7 +159,7 @@ public class User {
 		return  Objects.equals(email, other.email)
 				&& Objects.equals(fName, other.fName) && Objects.equals(id, other.id)
 				&& Objects.equals(lName, other.lName) && Objects.equals(orders, other.orders)
-				&& Objects.equals(password, other.password) && Objects.equals(reviews, other.reviews);
+				&& Objects.equals(password, other.password);
 	}
 
 

@@ -7,11 +7,12 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,15 +25,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+//	@Autowired
+//	private UserDetailsService userDetailsService;
 	
-	@Autowired
-	private DataSource datasource;
+
 	
 	@Bean
 	static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//	auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//	}
 	/**
 	 * create a method that authenticates a user by pulling username and password
 	 * by pulling from the database
@@ -46,17 +52,16 @@ public class SecurityConfig {
 				.requestMatchers("/**","/css/**").permitAll()
 				
 				.and()
-				.formLogin(form -> form.loginPage("/login")
-						.loginProcessingUrl("/login")
-						.defaultSuccessUrl("/home")
-						.permitAll())
+				.formLogin()
+				.loginPage("/login")
+				.loginProcessingUrl("/login")
+				.usernameParameter("email")
+				.defaultSuccessUrl("/home")
+				.permitAll()
+				.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.permitAll()
-				
-				.and()
-				.exceptionHandling()
-				.accessDeniedPage("/accessdenied");
+				.permitAll();
 		return http.build();
 	}
 

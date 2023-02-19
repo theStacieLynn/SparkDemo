@@ -7,9 +7,7 @@
 </head>
 <body>
 <h1>Welcome to the Login Page</h1>
-	<div th:if="${param.error}">
-		<div class="alert alert-danger">Invalid Email or Password</div>
-	</div>
+
 	<div th:if="${param.logout}">
 			<div class="alert alert-success">You have been logged out.</div>
 	</div>
@@ -17,21 +15,17 @@
 <!-- 		<form method="get" role="form" th:action="@{/home}"> -->
 		<form method="post" role="form" th:action="@{/login}">
 			<h1>Login</h1>
-	
-			<p>Insert account information</p>
-			<table cellspacing="1" cellpadding="1" border="1">
-				<tr>
-					<td><input type="text" id="name" placeholder="Email" /></td>
-				</tr>
-				<tr>
-					<td><input type="password" name="password" value=""
-						id="password" placeholder="Password" /></td>
-				</tr>
-			</table>
-			<input type="checkbox" id="stayLoggedIn" name="stay" value="agree">
-			<label for="stay">Stay logged in	</label><br> 
-			<input type="submit" value="Submit" />
-			</form>
-		</div>
+			<label for="email">Enter Email:</label>
+			<input type="email" id = "email" name = "email">
+			<br/>
+			
+			<label for="password">Enter Password:</label>
+			<input type = "password" id ="passowrd" name = "password">
+			<br/>
+			
+			<button type="submit">Login</button>
+			
+		</form>
+	</div>
 </body>
 </html>
