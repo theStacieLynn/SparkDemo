@@ -1,0 +1,56 @@
+@charset "ISO-8859-1";
+body {
+  font-family: Arial, sans-serif;
+  background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&w=1200);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #d95976;
+  padding: 20px;
+  place-items: center;
+}
+
+form, h1{
+	color: #d95976;
+} 
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  	font-family: "Montserrat", sans-serif;
+	font-weight:400;
+	font-size: 16px;
+	
+	color: #d95976;
+  
+}
+a{
+	font-family: "Montserrat", sans-serif;
+	font-weight:400;
+	font-size: 16px;
+	
+	color: #d95976;
+}
+
+button {
+  background-color: #d95976;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #e3889c;
+}

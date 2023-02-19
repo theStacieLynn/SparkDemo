@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" type="text/css" href="/styles/login.css" />
+<link rel="stylesheet" type="text/css" href="/styles/nav.css" />
 <meta charset="ISO-8859-1">
 <title>Create Account</title>
 </head>
@@ -8,7 +10,7 @@
 	<nav>
 		<a href="/login">Login In</a>
 	</nav>
-	<h1>Register</h1>
+<!-- 	<h1>Register</h1> -->
 	 <div th:if="${param.success}">
           <div class="alert alert-info">
             You have successfully registered our app!
@@ -17,6 +19,7 @@
 	<form method="post" role="form"
             th:action="@{/register/save}"
             th:object="${user}">
+            <h1>Register</h1>
 		<label for = "firstName">Frist Name: </label>
 		<input type ="text" id="fName" th:field="*{fName}">
 		<p th:errors = "*{firstName}" class="text-danger"

@@ -39,8 +39,8 @@ public class OrderController {
 	 */
 	//May need to change html
 	@GetMapping("/orders")
-	public String showAllOrders(Model model) {
-		User user = (User) SecurityContextHolder.getContext().getAuthentication();
+	public String showAllOrders(Model model, User user) {
+	
 		List<OrderOriginal> orders = orderService.getAllOrdersByUser(user);
 		model.addAttribute("myorders", orders);
 		return "viewcart";
@@ -108,6 +108,8 @@ public class OrderController {
 	 * @param id
 	 * @return
 	 */
+	
+	
 	@DeleteMapping("/orders/{id}/cancelorder")
 	public String cancelOrder(@PathVariable("id")Long id) {
 		OrderOriginal order = orderService.getOrderByID(id);

@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" type="text/css" href="/styles/nav.css" />
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Collections</title>
 </head>
 <body>
+ 	<header>
+        	<div>Spark</div>
+        	<nav>
+        	<ul class="nav_links">
+				  <li ><a href="/collections">Collections</a>
+				  <li ><a href="/orders">Orders</a>
+                  <li ><a href="/register">Sign Up</a></li>
+                  <li ><a href="/login">Log In</a></li>
+             </ul>
+        	</nav>
+        	<a class="cta" href="/contactus"><button>Contact Us</button></a>
+        </header>
 
+
+
+
+	
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Color</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th></th>
+		</tr>
+		
+		<tr th:each = "product : ${products}">
+		<form action="/orders/{id}/addproduct" method="post">
+	<input type="hidden" name = "productId" th:value="${product.id}"/>				
+				<td th:text = "${product.name}"></td>
+				<td th:text = "${product.color}"></td>
+				<td th:text = "${product.price}"></td>
+				<td><input type = "number" name="quantity" value ="1"/></td>
+				<td><input type = "submit"  value ="Add to Order"/></td>
+				</form>
+		</tr>
+	</table>
+	
 </body>
 </html>

@@ -45,7 +45,7 @@ public class ProductService {
 		return productRepository.findByColor(color);
 	}
 	
-	public Optional<Product> getProductByPrice(Double price){
-		return productRepository.findByPrice(price);
+	public List<Product> getProductsByCategory(String category){
+		return productRepository.findByCategory(category);
 	}
 }

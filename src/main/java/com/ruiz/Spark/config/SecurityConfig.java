@@ -49,7 +49,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeHttpRequests()
-				.requestMatchers("/**","/css/**").permitAll()
+				.requestMatchers("/**","/styles/**").permitAll()
+//			http.authorizeHttpRequests().requestMatchers("/**","/css/**","/static/styles/**").permitAll()
 				
 				.and()
 				.formLogin()
@@ -58,6 +59,7 @@ public class SecurityConfig {
 				.usernameParameter("email")
 				.defaultSuccessUrl("/home")
 				.permitAll()
+				
 				.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
