@@ -1,8 +1,10 @@
 package com.ruiz.Spark.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 import jakarta.persistence.*;
 /**
@@ -40,7 +42,7 @@ public class User {
 	 */
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<OrderOriginal> orders = new HashSet<>();
+	private List<OrderOriginal> orders = new ArrayList<>();
 	
 	
 	
@@ -52,7 +54,7 @@ public class User {
 	}
 	
 	
-	public User(String fName, String lName, String email, String password, Set<OrderOriginal> orders) {
+	public User(String fName, String lName, String email, String password, List<OrderOriginal> orders) {
 		super();
 		this.fName = fName;
 		this.lName = lName;
@@ -118,12 +120,12 @@ public class User {
 	}
 
 
-	public Set<OrderOriginal> getOrders() {
+	public List<OrderOriginal> getOrders() {
 		return orders;
 	}
 
 
-	public void setOrders(Set<OrderOriginal> orders) {
+	public void setOrders(List<OrderOriginal> orders) {
 		this.orders = orders;
 	}
 

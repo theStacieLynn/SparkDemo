@@ -7,9 +7,19 @@
 <title>Create Account</title>
 </head>
 <body>
-	<nav>
-		<a href="/login">Login In</a>
-	</nav>
+	<header>
+		<div>Spark</div>
+		<nav>
+			<ul class="nav_links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/collections">Collections</a>
+				<li><a href="/orders">Orders</a>
+				<li><a href="/login">Log In</a></li>
+			</ul>
+		</nav>
+		<a class="cta" href="/contactus"><button>Contact Us</button></a>
+	</header>
+<h1>Welcome to the Registration Page</h1>
 <!-- 	<h1>Register</h1> -->
 	 <div th:if="${param.success}">
           <div class="alert alert-info">
@@ -40,6 +50,7 @@
 		<input type ="password" id="password" th:field="*{password}">
 		<br />
 		<button type = "submit">Register</button>
+		<a href="/login">Login In</a>
 		
 	</form>
 </body>

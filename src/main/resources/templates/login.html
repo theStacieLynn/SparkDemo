@@ -2,11 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" type="text/css" href="/styles/login.css" />
+<link rel="stylesheet" type="text/css" href="/styles/nav.css" />
 <meta charset="ISO-8859-1">
 <title>Login</title>
 	
 </head>
 <body>
+	<header>
+		<div>Spark</div>
+		<nav>
+			<ul class="nav_links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/collections">Collections</a>
+				<li><a href="/orders">Cart</a>
+				<li><a href="/register">Sign Up</a></li>
+				
+			</ul>
+		</nav>
+		<a class="cta" href="/contactus"><button>Contact Us</button></a>
+	</header>
 <h1>Welcome to the Login Page</h1>
 
 	<div th:if="${param.logout}">

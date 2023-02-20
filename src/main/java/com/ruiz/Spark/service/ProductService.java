@@ -48,4 +48,9 @@ public class ProductService {
 	public List<Product> getProductsByCategory(String category){
 		return productRepository.findByCategory(category);
 	}
+	public void save(Product product) {
+		productRepository.save(product);
+		
+	}
+
 }

@@ -10,10 +10,10 @@ public class OrderProduct {
 	
 	private int quantity;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private OrderOriginal order;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Product product;
 
 	public OrderProduct(int quantity, OrderOriginal order, Product product) {

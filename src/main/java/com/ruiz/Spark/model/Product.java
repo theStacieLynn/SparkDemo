@@ -1,7 +1,7 @@
 package com.ruiz.Spark.model;
 
 
-import java.util.ArrayList;
+
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable=false)
+
 	private String name;
-	@Column(nullable=false)
+
 	private String color;
-	@Column(nullable=false)
+
 	private int price;
 	
 	/**
@@ -35,8 +35,8 @@ public class Product {
 	 */
 	
 	
-	@OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval=true)
-	private List<OrderProduct> items = new ArrayList<>();
+//	@OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval=true)
+//	private List<OrderProduct> items = new ArrayList<>();
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,12 +52,11 @@ public class Product {
 	}
 	
 	
-	public Product(String name, String color, int price, List<OrderProduct> items, Category category) {
+	public Product(String name, String color, int price, Category category) {
 		super();
 		this.name = name;
 		this.color = color;
 		this.price = price;
-		this.items = items;
 		this.category = category;
 	
 	}
@@ -107,17 +106,6 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	
-	
-	public List<OrderProduct> getItems() {
-		return items;
-	}
-
-
-	public void setItems(List<OrderProduct> items) {
-		this.items = items;
 	}
 
 

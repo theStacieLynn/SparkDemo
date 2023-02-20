@@ -6,23 +6,21 @@
 <title>Collections</title>
 </head>
 <body>
+	
  	<header>
         	<div>Spark</div>
         	<nav>
         	<ul class="nav_links">
-				  <li ><a href="/collections">Collections</a>
-				  <li ><a href="/orders">Orders</a>
+				  <li ><a href="/home">Home</a>
+				  <li ><a href="/orders">Cart</a>
                   <li ><a href="/register">Sign Up</a></li>
                   <li ><a href="/login">Log In</a></li>
              </ul>
         	</nav>
         	<a class="cta" href="/contactus"><button>Contact Us</button></a>
+        	
         </header>
-
-
-
-
-	
+	<p th:text="${error}"/>
 	<table>
 		<tr>
 			<th>Name</th>
@@ -33,16 +31,21 @@
 		</tr>
 		
 		<tr th:each = "product : ${products}">
-		<form action="/orders/{id}/addproduct" method="post">
-	<input type="hidden" name = "productId" th:value="${product.id}"/>				
+		<form action="/orders/addproduct" method="post" th:object="${product}">
+		<input type="hidden" name = "productId" th:value="${product.id}"/>				
 				<td th:text = "${product.name}"></td>
 				<td th:text = "${product.color}"></td>
 				<td th:text = "${product.price}"></td>
 				<td><input type = "number" name="quantity" value ="1"/></td>
-				<td><input type = "submit"  value ="Add to Order"/></td>
+				 <td><button type="submit">Add to Order</button></td>
 				</form>
+				
 		</tr>
 	</table>
+	<p th:text="${message}"/>
 	
+	<footer>
+	<a class="cta" href="/logout">Log Out</a>
+	</footer>
 </body>
 </html>

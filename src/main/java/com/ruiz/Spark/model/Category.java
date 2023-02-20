@@ -20,7 +20,7 @@ public class Category {
 	 * Category has a OneToManyRelationship with
 	 * Product
 	 */
-	@OneToMany(mappedBy = "category",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "category")
 	private List<Product> products = new ArrayList<>();
 	/**
 	 * Generate empty and parameterized constructors

@@ -21,7 +21,7 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 	
-
+	
 	
 	
 	@GetMapping("/login")
@@ -35,6 +35,10 @@ public class AuthController {
 		return "index";
 	}
 	
+	@GetMapping("/contactus")
+	public String getContactPage() {
+		return "contact_us";
+	}
 	/**
 	 * This method gets and displays
 	 * the account registration form

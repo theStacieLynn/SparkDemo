@@ -23,29 +23,13 @@ public class OrderService {
 	
 	
 	/**
-	 * method to create an order with specified user, calculates total,
-	 * and saves order to the repo
-	 * @param user
-	 * @param items
-	 * @return
-	 */
-	public OrderOriginal createOrder(User user, List<OrderProduct> items) {
-		OrderOriginal order = new OrderOriginal();
-		order.setUser(user);
-		order.setDate(LocalDateTime.now());
-		order.setItems(items);
-		order.setTotal(calculateTotal(items));
-		return orderRepository.save(order);
-	}
-	
-	
-	/**
 	 * Calculates the total of the order
 	 * @param products
 	 * @return
 	 */
-	private double calculateTotal(List<OrderProduct> products) {
+	public double calculateTotal(List<OrderProduct> products) {
 		double total = 0;
+		
 		for(OrderProduct product: products) {
 			total+=product.getProduct().getPrice();
 		}
@@ -58,30 +42,16 @@ public class OrderService {
 	 * @param user
 	 * @return
 	 */
-	public List<OrderOriginal> getAllOrdersByUser(User user){
+	public OrderOriginal getOrderByUser(User user){
 		return orderRepository.findByUser(user);
 	}
 	
-	/**
-	 * Adds a new OrderProduct to an existing order, updates order total price
-	 * and saves the updated order
-	 * @param order
-	 * @param product
-	 * @param quantity
-	 */
-	public void addProduct(OrderOriginal order, Product product, int quantity) {
-		OrderProduct item = new OrderProduct();
-		double price = product.getPrice();
-		double totalForProduct = price*quantity;
-		double total = (order.getTotal())+totalForProduct;
-		item.setProduct(product);
-		item.setOrder(order);
-		item.setQuantity(quantity);
-		order.getItems().add(item);
-		order.setTotal(total);
-		saveOrder(order);
+
+	public void addOrderedProduct(OrderOriginal order, OrderProduct orderProduct) {
+		orderProduct.setOrder(order);
+		order.getItems().add(orderProduct);
+		orderRepository.save(order);
 	}
-	
 	/**
 	 * Removes a product from the order, updates total and
 	 * saves updates order to the repo
@@ -112,5 +82,11 @@ public class OrderService {
 			throw new EntityNotFoundException("Order with id "+id+" is not found.");
 		}
 		return order;
+	}
+
+
+	public void save(OrderOriginal order) {
+		orderRepository.save(order);
+		
 	}
 }
