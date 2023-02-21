@@ -1,5 +1,6 @@
 package com.ruiz.Spark.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,16 +42,19 @@ public class ProductService {
 		return product;
 	}
 	
-	public Optional<Product> getProductByColor(String color){
-		return productRepository.findByColor(color);
-	}
 	
 	public List<Product> getProductsByCategory(String category){
 		return productRepository.findByCategory(category);
 	}
+	
 	public void save(Product product) {
 		productRepository.save(product);
 		
 	}
+    public ProductService(ProductRepository repo)
+    {
+        // this keyword refers to current instance
+        this.productRepository = repo;
+    }
 
 }

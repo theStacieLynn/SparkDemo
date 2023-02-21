@@ -1,7 +1,5 @@
 package com.ruiz.Spark.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,11 +102,6 @@ public class OrderController {
 	        order.setUser(user);
 	    }
 
-	    if (product == null) {
-	        redirectAttributes.addFlashAttribute("error", "Product not found.");
-	        return "redirect:/collections";
-	    }
-
 	    // Create a new OrderProduct and set its properties
 	    OrderProduct orderProduct = new OrderProduct();
 	    orderProduct.setProduct(product);
@@ -120,7 +113,8 @@ public class OrderController {
 	    productService.save(product);
 	    
 	    // Calculate the total of the order
-	    double firstItem = orderProduct.getProduct().getPrice();
+	    double firstItem = orderProduct.getProduct().getPrice() *quantity;
+
 	    double otheritems = orderService.calculateTotal(order.getItems());
 	    double total = firstItem+otheritems;
 	    order.setTotal(total);

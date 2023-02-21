@@ -1,7 +1,6 @@
 package com.ruiz.Spark.service;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,12 @@ public class OrderService {
 	 */
 	public double calculateTotal(List<OrderProduct> products) {
 		double total = 0;
+	
+		
 		
 		for(OrderProduct product: products) {
-			total+=product.getProduct().getPrice();
+		
+			total+=product.getProduct().getPrice()*product.getQuantity();
 		}
 		return total;
 	}
@@ -68,7 +70,7 @@ public class OrderService {
 	/*
 	 * saves order to the repository
 	 */
-	public void saveOrder(OrderOriginal order) {
+	public void save(OrderOriginal order) {
 		orderRepository.save(order);
 	}
 	
@@ -84,9 +86,4 @@ public class OrderService {
 		return order;
 	}
 
-
-	public void save(OrderOriginal order) {
-		orderRepository.save(order);
-		
-	}
 }

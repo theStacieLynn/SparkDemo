@@ -1,5 +1,7 @@
 package com.ruiz.Spark.repository;
 
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,4 @@ import com.ruiz.Spark.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	List<Product> findByCategory(String category);
-	Optional<Product> findByColor(String color);
-	
 }

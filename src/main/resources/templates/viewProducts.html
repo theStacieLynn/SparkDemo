@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" type="text/css" href="/styles/nav.css" />
+<link rel="stylesheet" type="text/css" href="/styles/index.css" />
 <meta charset="ISO-8859-1">
 <title>Collections</title>
 </head>
@@ -17,19 +18,22 @@
                   <li ><a href="/login">Log In</a></li>
              </ul>
         	</nav>
-        	<a class="cta" href="/contactus"><button>Contact Us</button></a>
+        	<a class="cta" href="/logout"><button>Logout</button></a>
         	
         </header>
 	<p th:text="${error}"/>
+
 	<table>
+	<thead>
 		<tr>
 			<th>Name</th>
 			<th>Color</th>
 			<th>Price</th>
 			<th>Quantity</th>
-			<th></th>
+			<th>       </th>
 		</tr>
-		
+		</thead>
+		<tbody>
 		<tr th:each = "product : ${products}">
 		<form action="/orders/addproduct" method="post" th:object="${product}">
 		<input type="hidden" name = "productId" th:value="${product.id}"/>				
@@ -38,14 +42,16 @@
 				<td th:text = "${product.price}"></td>
 				<td><input type = "number" name="quantity" value ="1"/></td>
 				 <td><button type="submit">Add to Order</button></td>
-				</form>
+		</form>
 				
 		</tr>
+		</tbody>
 	</table>
 	<p th:text="${message}"/>
 	
 	<footer>
-	<a class="cta" href="/logout">Log Out</a>
+		<a href="/logout">Log Out</a>
 	</footer>
+	
 </body>
 </html>

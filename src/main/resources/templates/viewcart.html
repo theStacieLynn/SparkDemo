@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/styles/nav.css" />
+<link rel="stylesheet" type="text/css" href="/styles/index.css" />
 <head>
-    <meta charset="UTF-8">
-    <title>View Cart</title>
+<meta charset="UTF-8">
+<title>View Cart</title>
 </head>
 <body>
 
 
-<header>
+	<header>
 		<div>Spark</div>
 		<nav>
 			<ul class="nav_links">
@@ -18,34 +19,42 @@
 				<li><a href="/login">Log In</a></li>
 			</ul>
 		</nav>
-		<a class="cta" href="/contactus"><button>Contact Us</button></a>
+		<a class="cta" href="/logout"><button>Logout</button></a>
 	</header>
-	
-    <h1>My Cart</h1>
-    <table>
-    	
-        <tr>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-        </tr>
-        <tr th:each="item : ${myorder.items}">
-            <td th:text="${item.product.name}"></td>
-            <td th:text="${item.product.price}"></td>
-            <td th:text="${item.quantity}"></td>
-            <td th:text="${item.quantity * item.product.price}"></td>
-        </tr>
-        <tr>
-            <td colspan="3" align="right">Total:</td>
-            <td th:text="${myorder.total}"></td>
-        </tr>
 
-    </table>
-    <form  action="orders/cancelorder">
-        	<input type="hidden" name = "id" th:value="${myorder.id}"/>
-        <button type="submit">Cancel Order</button>
-    </form>
+
+	<div class="div1">
+		<h1>My Cart</h1>
+		<table class="cartTable">
+
+			<tr>
+				<th>Product Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Total</th>
+			</tr>
+			<tr th:each="item : ${myorder.items}">
+				<td th:text="${item.product.name}"></td>
+				<td th:text="${item.product.price}"></td>
+				<td th:text="${item.quantity}"></td>
+				<td th:text="${item.quantity * item.product.price}"></td>
+			</tr>
+			<tr>
+				<td colspan="3" align="right">Total:</td>
+				<td th:text="${myorder.total}"></td>
+			</tr>
+
+		</table>
+		<form action="orders/cancelorder">
+			<input type="hidden" name="id" th:value="${myorder.id}" />
+			<button type="submit">Cancel Order</button>
+		</form>
+	</div>
+
+
+	<footer>
+		<a href="/contactus">Contact Us</a>
+	</footer>
 
 </body>
 </html>

@@ -48,9 +48,11 @@ public class Product {
 	 * Generate empty and parameterized constructors
 	 */
 	public Product() {
-		super();
+		
 	}
-	
+	public Product(String name) {
+		this.name= name;
+	}
 	
 	public Product(String name, String color, int price, Category category) {
 		super();
