@@ -9,12 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ruiz.Spark.model.Product;
 import com.ruiz.Spark.repository.ProductRepository;
 import com.ruiz.Spark.repository.UserRepository;
 
-@DataJpaTest
+@SpringBootTest
 class RepoTests {
 	
 	@Autowired
@@ -30,7 +31,7 @@ class RepoTests {
 	}
 	
 	
-	@ParameterizedTest
+	@Test
 	void findProductByCategory(String category) {
 		List<Product> products = productRepository.findByCategory(category);
 		Assertions.assertThat(products.size()).isGreaterThan(0);

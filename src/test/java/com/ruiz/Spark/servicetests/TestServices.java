@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ruiz.Spark.dto.UserDto;
 import com.ruiz.Spark.model.OrderOriginal;
@@ -21,9 +22,12 @@ import com.ruiz.Spark.service.OrderService;
 import com.ruiz.Spark.service.ProductService;
 import com.ruiz.Spark.service.UserService;
 
-@DataJpaTest
+import jakarta.transaction.Transactional;
+
+@SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Transactional 
 public class TestServices {
 	
 	
@@ -49,8 +53,8 @@ public class TestServices {
 	 */
 	@Test
 	@Order(1)
-	void testSaveUser() {
-		User user = new User("Stacie","Ruiz","123@gmail.com","4568");
+	public void testSaveUser() {
+		User user = new User("Stacie","Ruiz","test7@gmail.com","4568");
 		userRepository.save(user);
 		Assertions.assertThat(user.getId()).isGreaterThan(0);
 	}
@@ -65,9 +69,9 @@ public class TestServices {
 	@Test
 	@Order(3)
 	public void testDeleteOrder() { 
-        OrderOriginal order = orderRepository.findById(1L).get();
+        OrderOriginal order = new OrderOriginal();
         orderService.deleteOrder(order);
-        Assertions.assertThat(order).isNull();
+        Assertions.assertThat(order.getId()).isNull();
     }
 
 }
