@@ -1,7 +1,5 @@
 package com.ruiz.Spark.servicetests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -18,18 +16,22 @@ import com.ruiz.Spark.model.OrderOriginal;
 import com.ruiz.Spark.model.Product;
 import com.ruiz.Spark.model.User;
 import com.ruiz.Spark.repository.OrderRepository;
-import com.ruiz.Spark.repository.ProductRepository;
 import com.ruiz.Spark.repository.UserRepository;
 import com.ruiz.Spark.service.OrderService;
 import com.ruiz.Spark.service.ProductService;
 import com.ruiz.Spark.service.UserService;
 
-
-class ServiceTests {
-
+@DataJpaTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class TestServices {
+	
+	
+	
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private ProductService productService;
@@ -48,8 +50,8 @@ class ServiceTests {
 	@Test
 	@Order(1)
 	void testSaveUser() {
-		UserDto user = new UserDto("Stacie","Ruiz","123@gmail.com","4568");
-		userService.saveUser(user);
+		User user = new User("Stacie","Ruiz","123@gmail.com","4568");
+		userRepository.save(user);
 		Assertions.assertThat(user.getId()).isGreaterThan(0);
 	}
 	
@@ -67,6 +69,5 @@ class ServiceTests {
         orderService.deleteOrder(order);
         Assertions.assertThat(order).isNull();
     }
-
 
 }

@@ -47,14 +47,31 @@ public class ProductService {
 		return productRepository.findByCategory(category);
 	}
 	
+	/**
+	 * Saves the product
+	 * @param product
+	 */
 	public void save(Product product) {
 		productRepository.save(product);
 		
 	}
-    public ProductService(ProductRepository repo)
-    {
-        // this keyword refers to current instance
-        this.productRepository = repo;
-    }
+
+	/**
+	 * This method takes in an id 
+	 * and a product and updates that
+	 * product if it exists.
+	 * @param id
+	 * @param product
+	 */
+	public void updateProduct(Long id, Product product) {
+		Optional<Product> productData = productRepository.findById(id);
+		
+		if(productData.isPresent()) {
+			Product _product=productData.get();
+			_product.setName(product.getName());
+			_product.setColor(product.getColor());
+			productRepository.save(_product);
+		}
+	}
 
 }

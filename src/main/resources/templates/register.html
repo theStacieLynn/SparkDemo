@@ -3,6 +3,9 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/styles/login.css" />
 <link rel="stylesheet" type="text/css" href="/styles/nav.css" />
+
+
+
 <meta charset="ISO-8859-1">
 <title>Create Account</title>
 </head>
@@ -26,8 +29,9 @@
             You have successfully registered our app!
           </div>
       </div>
-	<form method="post" role="form"
+	<form  method="post" role="form"
             th:action="@{/register/save}"
+            
             th:object="${user}">
             <h1>Register</h1>
 		<label for = "firstName">Frist Name: </label>
@@ -49,9 +53,10 @@
 		<label for = "password">Password: </label>
 		<input type ="password" id="password" th:field="*{password}">
 		<br />
-		<button type = "submit">Register</button>
+		<button type = "submit" id="create-acc" th:onclick="return validateForm()">Register</button>
 		<a href="/login">Login In</a>
 		
 	</form>
+	<script src="/scripts/Validate.js"></script>
 </body>
 </html>

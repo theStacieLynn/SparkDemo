@@ -48,6 +48,10 @@ public class OrderController {
 		User user = userService.findbyEmail(userEmail);
 		return user;
 	}
+	/**
+	 * Gets the current users email
+	 * @return
+	 */
 	public String getUserEmail() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authentication.getName();
@@ -64,26 +68,41 @@ public class OrderController {
 		User user = getUserSession();
 		OrderOriginal order = orderService.getOrderByUser(user);
 		if(order==null) {
-			//model.addAttribute("error", "You have no orders at this time.");
 			redirectAttributes.addFlashAttribute("error", "You have no orders at this time");
 			return "redirect:/collections";
 		}
 		model.addAttribute("myorder", order);
 		return "viewCart";
 	}
-	
+		
 
+	/**
+	 * This is the GetMapping adds the product and quantity
+	 * to the model.
+	 * @param productId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("orders/addproduct")
 	public String showAddProductToOrderForm(@RequestParam Long productId, Model model) {
 	    Product product = productService.getProductById(productId);
-	    if (product == null) {
-	        model.addAttribute("error", "Product not found.");
-	    } else {
+	    
 	        model.addAttribute("product", product);
 	        model.addAttribute("quantity", 1);
-	    }
+	    
 	    return "viewProducts";
 	}
+	/**
+	 * This method adds a product to an order,
+	 * if the user does not have an order than it 
+	 * creates a new order. This uses PostMapping to
+	 * save changes to the database
+	 * @param productId
+	 * @param quantity
+	 * @param session
+	 * @param redirectAttributes
+	 * @return
+	 */
 
 	@PostMapping("orders/addproduct")
 	public String processAddProductToOrder(@RequestParam Long productId, @RequestParam int quantity,
@@ -92,10 +111,13 @@ public class OrderController {
 
 	    // Get the current customer's order
 		User user = getUserSession();
+		//Get order by user
 		OrderOriginal order = orderService.getOrderByUser(user);
 
 	    // Get the product to add to the order
 	    Product product = productService.getProductById(productId);
+	    
+	    
 	    // If no order exists for the user, create a new order
 	    if (order == null) {
 	        order = new OrderOriginal();
