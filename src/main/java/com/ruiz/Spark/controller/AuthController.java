@@ -52,6 +52,17 @@ public class AuthController {
 		return "register";
 	}
 
+	/**
+	 * BindingResult provides a way to handle errors and validation failures (interface that holds the result)
+	 * This method creates a User object by UserDTO email
+	 * if the already exists the result is rejected
+	 * if result contains errors it returns the registration page
+	 * If it is a new user and fields do not contain errors UserDTO is saved as a new user
+	 * @param userDto
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/register/save")
 	public String createAccount(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model	) {
 		User userExists = userService.findbyEmail(userDto.getEmail());

@@ -3,10 +3,12 @@ package com.ruiz.Spark.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.ruiz.Spark.model.Product;
 import com.ruiz.Spark.repository.ProductRepository;
@@ -42,8 +44,14 @@ public class ProductService {
 		return product;
 	}
 	
-	
+	/**
+	 * This method gets a list of 
+	 * products by category name
+	 * @param category
+	 * @return
+	 */
 	public List<Product> getProductsByCategory(String category){
+		
 		return productRepository.findByCategory(category);
 	}
 	

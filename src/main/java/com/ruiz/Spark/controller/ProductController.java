@@ -18,6 +18,12 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	/**
+	 * This method gets a list of all products
+	 * and adds it to the model attribute
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/collections")
 	public String getAllProducts(Model model) {
 		List<Product> products = productService.getAllProducts();

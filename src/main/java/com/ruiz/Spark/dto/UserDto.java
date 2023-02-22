@@ -2,6 +2,11 @@ package com.ruiz.Spark.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+/**
+ * User Data Transfer Object 
+ * @author s_lyn
+ *
+ */
 
 public class UserDto {
 	private Long id;
@@ -20,6 +25,7 @@ public class UserDto {
 		super();
 	}
 
+	
 	public UserDto(@NotEmpty String fName, @NotEmpty String lName,
 			@NotEmpty(message = "Email should not be empty") @Email String email,
 			@NotEmpty(message = "Password should not be empty") String password) {

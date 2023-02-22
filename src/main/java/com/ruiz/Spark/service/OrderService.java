@@ -49,11 +49,6 @@ public class OrderService {
 	}
 	
 
-	public void addOrderedProduct(OrderOriginal order, OrderProduct orderProduct) {
-		orderProduct.setOrder(order);
-		order.getItems().add(orderProduct);
-		orderRepository.save(order);
-	}
 	/**
 	 * Removes a product from the order, updates total and
 	 * saves updates order to the repo
@@ -66,18 +61,31 @@ public class OrderService {
 		order.setTotal(total);
 		orderRepository.save(order);
 	}
-	
-	/*
-	 * saves order to the repository
+
+	/**
+	 * saves order
+	 * @param order
 	 */
 	public void save(OrderOriginal order) {
 		orderRepository.save(order);
 	}
-	
+
+	/**
+	 * deletes order
+	 * @param order
+	 */
 	public void deleteOrder(OrderOriginal order) {
 		orderRepository.delete(order);
 	}
 	
+
+	/**
+	 * gets order by id
+	 * if order doesn't exist
+	 * an exception is thrown
+	 * @param id
+	 * @return
+	 */
 	public OrderOriginal getOrderByID(Long id){
 		OrderOriginal order = orderRepository.findById(id).orElse(null);
 		if(order==null) {

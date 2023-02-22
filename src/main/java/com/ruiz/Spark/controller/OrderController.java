@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,15 +40,17 @@ public class OrderController {
 	private UserService userService;
 	
 	
-	
-	@ModelAttribute("user")
+	/**
+	 * Returns the current user by their email
+	 * @return
+	 */
 	public User getUserSession() {
 		String userEmail = getUserEmail();
 		User user = userService.findbyEmail(userEmail);
 		return user;
 	}
 	/**
-	 * Gets the current users email
+	 * Gets the email used to login
 	 * @return
 	 */
 	public String getUserEmail() {
@@ -62,7 +63,14 @@ public class OrderController {
 
 	
 
-	
+	/**
+	 * This method shows the user their current order
+	 * If the user does not have an order the Flash attribute 
+	 * displays an error, and page is redirected to collections
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@GetMapping("/orders")
 	public String showOrder(Model model, RedirectAttributes redirectAttributes) {
 		User user = getUserSession();
@@ -77,7 +85,7 @@ public class OrderController {
 		
 
 	/**
-	 * This is the GetMapping adds the product and quantity
+	 * The GetMapping adds the product and quantity
 	 * to the model.
 	 * @param productId
 	 * @param model
@@ -109,7 +117,7 @@ public class OrderController {
 	                                       HttpSession session,
 	                                       RedirectAttributes redirectAttributes) {
 
-	    // Get the current customer's order
+	    // Get the current user
 		User user = getUserSession();
 		//Get order by user
 		OrderOriginal order = orderService.getOrderByUser(user);
@@ -124,19 +132,15 @@ public class OrderController {
 	        order.setUser(user);
 	    }
 
-	    // Create a new OrderProduct and set its properties
+	    // Create a new OrderProduct and set properties
 	    OrderProduct orderProduct = new OrderProduct();
 	    orderProduct.setProduct(product);
 	    orderProduct.setQuantity(quantity);
 	    orderProduct.setOrder(order);
 	   
-
-	    // Save the product before saving the order product
-	    productService.save(product);
 	    
 	    // Calculate the total of the order
 	    double firstItem = orderProduct.getProduct().getPrice() *quantity;
-
 	    double otheritems = orderService.calculateTotal(order.getItems());
 	    double total = firstItem+otheritems;
 	    order.setTotal(total);

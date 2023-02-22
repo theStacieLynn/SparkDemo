@@ -3,7 +3,7 @@ package com.ruiz.Spark.model;
 
 
 
-import java.util.List;
+
 
 import jakarta.persistence.*;
 /**

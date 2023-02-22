@@ -1,5 +1,8 @@
 const createAccBtn = document.getElementById("create-acc");
 
+/**The validate form is used 
+*to alert the user not to leave fields blank 
+ */
 function validateForm() {
 	let fname = document.getElementById("fName").value;
 	let lname = document.getElementById("lName").value;
@@ -26,7 +29,7 @@ function validateForm() {
 	}
 	
 }
-
+/*
 function showAlert() {
     alert("Your account has been created");
 }

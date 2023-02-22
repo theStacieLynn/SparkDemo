@@ -3,7 +3,6 @@ package com.ruiz.Spark.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,12 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	
+	/**
+	 * Method to find a user by their email;
+	 * @param email
+	 * @return
+	 */
 	public User findbyEmail(String email) {
 		
 		return userRepository.findByEmail(email);
@@ -34,6 +39,13 @@ public class UserService {
 	}
 	
 
+	/**
+	 * This method takes in a User Data Transfer Object
+	 * and sets the user object to the db to the data obtained
+	 * from the UserDto, creating a new user. Encodes the password
+	 *  when saving it to the database
+	 * @param userDto
+	 */
 	public void saveUser(UserDto userDto) {
 		User user = new User();
 		user.setfName(userDto.getfName());
